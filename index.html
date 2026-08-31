@@ -2450,35 +2450,6 @@ table.cmp td.feat {
 /* ==========================================================================
    PRICING
    ========================================================================== */
-.founding {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  padding: 20px 26px;
-  border-radius: var(--r-lg);
-  margin-bottom: 26px;
-}
-.founding .t {
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 19px;
-  letter-spacing: -0.025em;
-}
-.founding p {
-  font-size: 14.5px;
-  opacity: 0.85;
-  flex: 1;
-  min-width: 220px;
-}
-.founding .when {
-  font-family: var(--body);
-  font-size: 10.5px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  opacity: 0.7;
-}
-
 .plans {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -2745,32 +2716,6 @@ table.cmp td.feat {
 .final-card .btn-ghost .arrow {
   background: rgba(255, 255, 255, 0.14);
 }
-.seats {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.seat {
-  width: 42px;
-  height: 42px;
-  border-radius: 13px;
-  display: grid;
-  place-items: center;
-  font-family: var(--counter);
-  font-size: 13px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.42);
-  background: rgba(255, 255, 255, 0.055);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  transition: transform var(--t-slow) var(--e-spring), background var(--t-fast) var(--e-out), color var(--t-fast) var(--e-out);
-}
-.seat:hover {
-  transform: translateY(-6px) scale(1.04);
-  background: rgba(92, 184, 245, 0.18);
-  color: var(--azure);
-}
-
 /* ==========================================================================
    FOOTER
    ========================================================================== */
@@ -3075,7 +3020,6 @@ table.cmp td.feat {
 .verdict .v,
 .chain-name,
 .chain-native,
-.founding .t,
 .commit-head .t,
 .group-card .dom,
 .stance-tag,
@@ -3149,8 +3093,8 @@ main[id] {
 <!-- ══════════════════ ANNOUNCEMENT ══════════════════ -->
 <div class="announce">
   <div class="wrap">
-    <span><b>Launching August 2026</b></span>
-    <span>The founding ten is now forming</span>
+    <span><b>Launching now</b></span>
+    <span>Get your wallet-intelligence layer live in weeks</span>
     <a href="#access">Request access
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
@@ -3226,7 +3170,7 @@ main[id] {
         </a>
       </div>
 
-      <span class="hero-note anim-fade"><i class="pulse"></i>Launching August 2026, founding cohort now forming</span>
+      <span class="hero-note anim-fade"><i class="pulse"></i>Launching now, live on your deposits in weeks</span>
     </div>
 
     <!-- constellation: the wallet graph -->
@@ -4069,12 +4013,6 @@ main[id] {
       </div>
     </div>
 
-    <div class="founding clay clay-steel">
-      <span class="t">Founding 10</span>
-      <p>First ten brands get <b>50% off for 12 months</b> on Growth or Scale, 12-month contract.</p>
-      <span class="when">Launching August 2026</span>
-    </div>
-
     <div class="plans">
       <article class="plan panel panel-lift">
         <div class="plan-name">Launch</div>
@@ -4203,8 +4141,8 @@ main[id] {
       <div class="faq-group-t">Pricing &amp; commercial</div>
       <details class="faq"><summary>How is it priced?<span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>Per active player each month, counted once per player by wallet, with unlimited checks inside that month, and never a cut of your revenue. Plans start at $1,000 a month, which covers your first 1,000 active players.</p></div></details>
       <details class="faq"><summary>What counts as an active player?<span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>A unique player wallet that you check in a given month. You are charged once for that wallet no matter how many times you query it that month, so re-checking a returning player costs nothing extra.</p></div></details>
-      <details class="faq"><summary>Is there a contract or minimum?<span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>Depends on the tier. Launch and Growth start with a 6-month commitment, then continue monthly. Scale is an annual contract with priority support and hands-on tuning. No setup fee at any tier. Founding-ten brands also lock in 50% off for a full year on Growth or Scale.</p></div></details>
-      <details class="faq"><summary>When does it launch?<span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>August 2026, with the founding cohort forming now. The first ten brands lock in half price for twelve months.</p></div></details>
+      <details class="faq"><summary>Is there a contract or minimum?<span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>Depends on the tier. Launch and Growth start with a 6-month commitment, then continue monthly. Scale is an annual contract with priority support and hands-on tuning. No setup fee at any tier.</p></div></details>
+      <details class="faq"><summary>When does it launch?<span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>It's live now. Connect your deposits and start getting verdicts in weeks.</p></div></details>
     </div>
   </div>
 </section>
@@ -4215,9 +4153,9 @@ main[id] {
     <div class="final-card">
       <span class="orb orb-1" aria-hidden="true"></span>
       <span class="orb orb-2" aria-hidden="true"></span>
-      <span class="eyebrow">Launching August 2026</span>
-      <h2 class="display h2 reveal">Be one of the <span class="accent">founding ten.</span></h2>
-      <p>We're opening Whal3Core to the first ten brands at launch, at half price for a full year. Tell us about your operation and we'll set up a walkthrough.</p>
+      <span class="eyebrow">Launching now</span>
+      <h2 class="display h2 reveal">Know who just <span class="accent">deposited.</span></h2>
+      <p>Connect your deposits and Whal3Core starts scoring the same day. Tell us about your operation and we'll set up a walkthrough.</p>
       <div class="final-actions">
         <a class="btn btn-azure" href="mailto:lloyd@trustseed.ae?subject=Whal3Core%20access%20request">Request access
           <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
@@ -4225,10 +4163,6 @@ main[id] {
         <a class="btn btn-ghost" href="mailto:lloyd@trustseed.ae?subject=Whal3Core%20demo">Book a demo
           <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
-      </div>
-      <div class="seats" aria-label="Ten founding places">
-        <span class="seat">1</span><span class="seat">2</span><span class="seat">3</span><span class="seat">4</span><span class="seat">5</span>
-        <span class="seat">6</span><span class="seat">7</span><span class="seat">8</span><span class="seat">9</span><span class="seat">10</span>
       </div>
     </div>
   </div>
@@ -4271,7 +4205,7 @@ main[id] {
       <div class="footer-col">
         <h4>Pricing</h4>
         <a href="#pricing">Plans</a>
-        <a href="#access">Founding ten</a>
+        <a href="#access">Request access</a>
         <a href="#faq">FAQ</a>
       </div>
       <div class="footer-col">
