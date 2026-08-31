@@ -2452,7 +2452,7 @@ table.cmp td.feat {
    ========================================================================== */
 .plans {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 20px;
 }
 .plan {
@@ -2475,9 +2475,10 @@ table.cmp td.feat {
 .plan-price {
   font-family: var(--display);
   font-weight: 700;
-  font-size: clamp(38px, 3.8vw, 52px);
+  font-size: clamp(30px, 2.6vw, 40px);
   letter-spacing: -0.045em;
   line-height: 1;
+  white-space: nowrap;
 }
 .plan-price small {
   font-size: 15px;
@@ -2533,7 +2534,7 @@ table.cmp td.feat {
 }
 .commitment {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
   margin-top: 20px;
 }
@@ -2946,9 +2947,6 @@ table.cmp td.feat {
     transform: scale(0.64);
     transform-origin: top center;
   }
-  .spark {
-    display: none;
-  }
   .cases,
   .stance,
   .steps,
@@ -3093,7 +3091,7 @@ main[id] {
 <!-- ══════════════════ ANNOUNCEMENT ══════════════════ -->
 <div class="announce">
   <div class="wrap">
-    <span><b>Launching now</b></span>
+    <span><b>Now Live</b></span>
     <span>Get your wallet-intelligence layer live in weeks</span>
     <a href="#access">Request access
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -3803,7 +3801,7 @@ main[id] {
           <tr><td class="feat">A verdict the instant a player deposits</td><td><span class="part">Risk only</span></td><td><span class="no">–</span></td><td class="own"><span class="yes">✓</span></td></tr>
           <tr><td class="feat">Linked-account &amp; multi-accounting fraud</td><td><span class="part">Partial</span></td><td><span class="part">Own data only</span></td><td class="own"><span class="yes">✓</span></td></tr>
           <tr><td class="feat">Dual verdict, value and risk scored apart</td><td><span class="no">–</span></td><td><span class="no">–</span></td><td class="own"><span class="yes">✓</span></td></tr>
-          <tr><td class="feat">Typical cost</td><td>$40k–$250k+ / yr</td><td>Varies</td><td class="own"><b>From $1,000/mo · $12k/yr</b></td></tr>
+          <tr><td class="feat">Typical cost</td><td>$40k–$250k+ / yr</td><td>Varies</td><td class="own"><b>From $250/mo · $3k/yr</b></td></tr>
         </tbody>
       </table>
     </div>
@@ -3816,8 +3814,8 @@ main[id] {
       </div>
       <div class="cost-card clay clay-dark">
         <div class="k">Whal3Core</div>
-        <div class="v">From $1,000 <small>/mo · $12k/yr</small></div>
-        <p>$1,000/mo covers your first 1,000 active players, counted once by wallet. No revenue share, AML built in. A whole tier below a compliance suite, doing the job they can't.</p>
+        <div class="v">From $250 <small>/mo · $3k/yr</small></div>
+        <p>$250/mo covers your first 100 active players, counted once by wallet. No revenue share, AML built in. A whole tier below a compliance suite, doing the job they can't.</p>
       </div>
     </div>
 
@@ -4015,11 +4013,59 @@ main[id] {
 
     <div class="plans">
       <article class="plan panel panel-lift">
+        <div class="plan-name">Micro</div>
+        <div class="plan-price">$250 <small>/mo</small></div>
+        <ul class="ticks">
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Covers <strong>100 active players / mo</strong></span></li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span><strong>$2.00</strong> per active player beyond</span></li>
+        </ul>
+        <a class="btn btn-ghost" href="#access">Request access
+          <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </article>
+
+      <article class="plan panel panel-lift">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">$400 <small>/mo</small></div>
+        <ul class="ticks">
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Covers <strong>200 active players / mo</strong></span></li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span><strong>$1.50</strong> per active player beyond</span></li>
+        </ul>
+        <a class="btn btn-ghost" href="#access">Request access
+          <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </article>
+
+      <article class="plan panel panel-lift">
+        <div class="plan-name">Entry</div>
+        <div class="plan-price">$650 <small>/mo</small></div>
+        <ul class="ticks">
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Covers <strong>500 active players / mo</strong></span></li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span><strong>$1.20</strong> per active player beyond</span></li>
+        </ul>
+        <a class="btn btn-ghost" href="#access">Request access
+          <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </article>
+
+      <article class="plan panel panel-lift">
         <div class="plan-name">Launch</div>
         <div class="plan-price">$1,000 <small>/mo</small></div>
         <ul class="ticks">
           <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Covers <strong>1,000 active players / mo</strong></span></li>
           <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span><strong>$1.00</strong> per active player beyond</span></li>
+        </ul>
+        <a class="btn btn-ghost" href="#access">Request access
+          <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </article>
+
+      <article class="plan panel panel-lift">
+        <div class="plan-name">Rise</div>
+        <div class="plan-price">$2,250 <small>/mo</small></div>
+        <ul class="ticks">
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Covers <strong>2,500 active players / mo</strong></span></li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span><strong>$0.85</strong> per active player beyond</span></li>
         </ul>
         <a class="btn btn-ghost" href="#access">Request access
           <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
@@ -4035,6 +4081,19 @@ main[id] {
           <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span><strong>$0.70</strong> per active player beyond</span></li>
         </ul>
         <a class="btn btn-azure" href="#access">Request access
+          <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </article>
+
+      <article class="plan panel panel-lift">
+        <div class="plan-name">Pro</div>
+        <div class="plan-price">$6,500 <small>/mo</small></div>
+        <ul class="ticks">
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Covers <strong>10,000 active players / mo</strong></span></li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span><strong>$0.60</strong> per active player beyond</span></li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Priority calibration &amp; support</span></li>
+        </ul>
+        <a class="btn btn-ghost" href="#access">Request access
           <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
       </article>
@@ -4057,6 +4116,15 @@ main[id] {
     <p class="includes"><b>Every tier includes:</b> Dual verdict · Dossier · Live alerts · Source-of-funds &amp; AML · Cross-casino &amp; share-of-wallet · Linked-account fraud · CRM &amp; ops integration. Running the full WAG3R platform? 50% off any tier.</p>
 
     <div class="commitment">
+      <div class="commit">
+        <div class="commit-head">
+          <span class="t">Micro, Starter &amp; Entry</span>
+        </div>
+        <ul class="ticks">
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span><strong>Monthly</strong>, cancel with 30 days notice</span></li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>No setup fee at any tier</span></li>
+        </ul>
+      </div>
       <div class="commit best">
         <div class="commit-head">
           <span class="t">Launch &amp; Growth</span>
@@ -4069,7 +4137,7 @@ main[id] {
       </div>
       <div class="commit">
         <div class="commit-head">
-          <span class="t">Scale</span>
+          <span class="t">Pro &amp; Scale</span>
         </div>
         <ul class="ticks">
           <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span><strong>Annual contract</strong>, no setup fee</span></li>
@@ -4139,7 +4207,7 @@ main[id] {
 
     <div class="faq-group">
       <div class="faq-group-t">Pricing &amp; commercial</div>
-      <details class="faq"><summary>How is it priced?<span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>Per active player each month, counted once per player by wallet, with unlimited checks inside that month, and never a cut of your revenue. Plans start at $1,000 a month, which covers your first 1,000 active players.</p></div></details>
+      <details class="faq"><summary>How is it priced?<span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>Per active player each month, counted once per player by wallet, with unlimited checks inside that month, and never a cut of your revenue. Plans start at $250 a month, which covers your first 100 active players.</p></div></details>
       <details class="faq"><summary>What counts as an active player?<span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>A unique player wallet that you check in a given month. You are charged once for that wallet no matter how many times you query it that month, so re-checking a returning player costs nothing extra.</p></div></details>
       <details class="faq"><summary>Is there a contract or minimum?<span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>Depends on the tier. Launch and Growth start with a 6-month commitment, then continue monthly. Scale is an annual contract with priority support and hands-on tuning. No setup fee at any tier.</p></div></details>
       <details class="faq"><summary>When does it launch?<span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>It's live now. Connect your deposits and start getting verdicts in weeks.</p></div></details>
