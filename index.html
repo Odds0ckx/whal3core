@@ -2450,6 +2450,35 @@ table.cmp td.feat {
 /* ==========================================================================
    PRICING
    ========================================================================== */
+.founding {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 20px 26px;
+  border-radius: var(--r-lg);
+  margin-bottom: 26px;
+}
+.founding .t {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: -0.025em;
+}
+.founding p {
+  font-size: 14.5px;
+  opacity: 0.85;
+  flex: 1;
+  min-width: 220px;
+}
+.founding .when {
+  font-family: var(--body);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
 .plans-carousel {
   position: relative;
 }
@@ -3087,6 +3116,7 @@ table.cmp td.feat {
 .verdict .v,
 .chain-name,
 .chain-native,
+.founding .t,
 .commit-head .t,
 .group-card .dom,
 .stance-tag,
@@ -4078,6 +4108,12 @@ main[id] {
         <h2 class="display h2 reveal">Priced per active player.</h2>
         <p class="lede">Charged for the players active each month, counted once per player by wallet, with unlimited checks inside that month. Never a cut of your revenue.</p>
       </div>
+    </div>
+
+    <div class="founding clay clay-steel">
+      <span class="t">Live now</span>
+      <p>The full platform, priced per active player, unlimited checks included.</p>
+      <span class="when">Now live</span>
     </div>
 
     <div class="plans-carousel">
