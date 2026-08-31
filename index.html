@@ -2477,6 +2477,11 @@ table.cmp td.feat {
   gap: 18px;
   position: relative;
 }
+@media (min-width: 981px) {
+  .plan {
+    flex-basis: calc((100% - 60px) / 4);
+  }
+}
 .plans-controls {
   display: flex;
   align-items: center;
@@ -4183,16 +4188,7 @@ main[id] {
       <button class="plans-nav plans-nav-prev" id="plansPrev" aria-label="Previous plan">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
       </button>
-      <div class="plans-dots" id="plansDots">
-        <button class="plans-dot" aria-label="Go to Micro"></button>
-        <button class="plans-dot" aria-label="Go to Starter"></button>
-        <button class="plans-dot" aria-label="Go to Entry"></button>
-        <button class="plans-dot" aria-label="Go to Launch"></button>
-        <button class="plans-dot" aria-label="Go to Rise"></button>
-        <button class="plans-dot" aria-label="Go to Growth"></button>
-        <button class="plans-dot" aria-label="Go to Pro"></button>
-        <button class="plans-dot" aria-label="Go to Scale"></button>
-      </div>
+      <div class="plans-dots" id="plansDots"></div>
       <button class="plans-nav plans-nav-next" id="plansNext" aria-label="Next plan">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
       </button>
@@ -4384,37 +4380,64 @@ main[id] {
   if (!track) return;
   var prev = document.getElementById('plansPrev');
   var next = document.getElementById('plansNext');
-  var dots = document.querySelectorAll('#plansDots .plans-dot');
-  var cards = track.querySelectorAll('.plan');
+  var dotsBox = document.getElementById('plansDots');
+  var cards = Array.prototype.slice.call(track.querySelectorAll('.plan'));
+  if (!cards.length) return;
 
-  function step() {
-    var card = cards[0];
-    if (!card) return 300;
+  function gap() {
     var style = getComputedStyle(track);
-    var gap = parseFloat(style.columnGap || style.gap || 20);
-    return card.getBoundingClientRect().width + gap;
+    return parseFloat(style.columnGap || style.gap || 20);
+  }
+
+  function cardStep() {
+    return cards[0].getBoundingClientRect().width + gap();
+  }
+
+  function itemsPerPage() {
+    var n = Math.round(track.clientWidth / cardStep());
+    return Math.max(1, Math.min(n, cards.length));
+  }
+
+  var dots = [];
+
+  function buildDots() {
+    var perPage = itemsPerPage();
+    var starts = [];
+    for (var i = 0; i < cards.length; i += perPage) starts.push(i);
+    dotsBox.innerHTML = '';
+    dots = starts.map(function (startIdx, pageI) {
+      var b = document.createElement('button');
+      b.className = 'plans-dot';
+      b.setAttribute('aria-label', 'Go to page ' + (pageI + 1));
+      b.addEventListener('click', function () {
+        track.scrollTo({ left: cards[startIdx].offsetLeft, behavior: 'smooth' });
+      });
+      dotsBox.appendChild(b);
+      return { el: b, startIdx: startIdx };
+    });
+    updateActiveDot();
+  }
+
+  function updateActiveDot() {
+    if (!dots.length) return;
+    var maxScroll = track.scrollWidth - track.clientWidth;
+    var activeI = dots.length - 1;
+    if (track.scrollLeft < maxScroll - 2) {
+      var closestDist = Infinity;
+      dots.forEach(function (d, i) {
+        var dist = Math.abs(cards[d.startIdx].offsetLeft - track.scrollLeft);
+        if (dist < closestDist) { closestDist = dist; activeI = i; }
+      });
+    }
+    dots.forEach(function (d, i) { d.el.classList.toggle('is-active', i === activeI); });
   }
 
   if (prev) prev.addEventListener('click', function () {
-    track.scrollBy({ left: -step(), behavior: 'smooth' });
+    track.scrollBy({ left: -itemsPerPage() * cardStep(), behavior: 'smooth' });
   });
   if (next) next.addEventListener('click', function () {
-    track.scrollBy({ left: step(), behavior: 'smooth' });
+    track.scrollBy({ left: itemsPerPage() * cardStep(), behavior: 'smooth' });
   });
-
-  function updateActiveDot() {
-    if (!dots.length || !cards.length) return;
-    var maxScroll = track.scrollWidth - track.clientWidth;
-    var closest = cards.length - 1;
-    if (track.scrollLeft < maxScroll - 2) {
-      var closestDist = Infinity;
-      cards.forEach(function (c, i) {
-        var dist = Math.abs(c.offsetLeft - track.scrollLeft);
-        if (dist < closestDist) { closestDist = dist; closest = i; }
-      });
-    }
-    dots.forEach(function (d, i) { d.classList.toggle('is-active', i === closest); });
-  }
 
   var scrollTick = false;
   track.addEventListener('scroll', function () {
@@ -4422,14 +4445,14 @@ main[id] {
     scrollTick = true;
     requestAnimationFrame(function () { updateActiveDot(); scrollTick = false; });
   });
-  updateActiveDot();
 
-  dots.forEach(function (d, i) {
-    d.addEventListener('click', function () {
-      var card = cards[i];
-      if (card) track.scrollTo({ left: card.offsetLeft, behavior: 'smooth' });
-    });
+  var resizeTick;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTick);
+    resizeTick = setTimeout(buildDots, 150);
   });
+
+  buildDots();
 })();
 </script>
 </body>
