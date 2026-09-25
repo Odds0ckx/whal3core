@@ -1,47 +1,22 @@
-"use client";
-
 /**
  * Whal3Core page loader
  *
- * A full-screen splash: the Whal3Core mark with rings rippling out from its
- * circle. It covers the page until it has loaded, stays up for at least
- * `minDuration` so it never just flashes, then fades out and unmounts.
- * No dependencies beyond React; styles are included in this file.
- *
- * Usage (Next.js app router: app/layout.tsx):
+ * A full-screen overlay: the Whal3Core mark with rings rippling out from its
+ * circle. It loops forever; render it while the page loads and remove it
+ * when ready:
  *
  *   import { PageLoader } from "@/components/page-loader";
  *
- *   <body>
- *     <PageLoader />
- *     {children}
- *   </body>
+ *   {loading && <PageLoader />}
  *
- * By default it hides once the window "load" event has fired. To control it
- * yourself (e.g. wait for data), pass `loading`; it re-shows if `loading`
- * goes back to true:
- *
- *   <PageLoader loading={!data} />
- *
- * Start entrance animations from `onDone`, which fires as the fade begins,
- * so they play in view rather than behind the loader. Non-React code can
- * listen for the "pageloader:done" event on `document` instead.
- *
- * Safety nets: it hides after `maxDuration` even if loading never finishes,
- * and a CSS fallback hides it one second after that if the page's JS never
- * runs (e.g. hydration fails). With prefers-reduced-motion the rings hold
- * still as a static halo and the minimum duration is skipped.
+ * No dependencies beyond React, styles included, no hooks (so it also works
+ * as a server component). With prefers-reduced-motion the rings hold still
+ * as a static halo.
  */
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import type { CSSProperties } from "react";
 
 export type PageLoaderProps = {
-  /** Leave unset to hide on window load; true shows it, false hides it. */
-  loading?: boolean;
-  /** Shortest time on screen, in ms. */
-  minDuration?: number;
-  /** Hide regardless after this many ms. Pass Infinity to turn it off. */
-  maxDuration?: number;
   /** Ring and mark colour. */
   color?: string;
   /** Overlay colour; match the page background. */
@@ -50,104 +25,22 @@ export type PageLoaderProps = {
   size?: number;
   /** Text announced to screen readers. */
   label?: string;
-  /** Called as the loader starts to fade out. */
-  onDone?: () => void;
 };
 
-type Phase = "loading" | "leaving" | "gone";
-
-/* Matches the 0.75s fade in the CSS, plus a little slack before unmounting. */
-const FADE_MS = 900;
-
 export function PageLoader({
-  loading,
-  minDuration = 1400,
-  maxDuration = 8000,
   color = "#487197",
   background = "#eef1f5",
   size = 72,
   label = "Loading Whal3Core",
-  onDone,
 }: PageLoaderProps) {
-  const [phase, setPhase] = useState<Phase>("loading");
-  const [windowLoaded, setWindowLoaded] = useState(false);
-  const shownAt = useRef(0);
-  const onDoneRef = useRef(onDone);
-
-  const ready = loading === undefined ? windowLoaded : !loading;
-
-  useEffect(() => {
-    onDoneRef.current = onDone;
-  });
-
-  // Uncontrolled: wait for the window load event (it may already have fired).
-  useEffect(() => {
-    if (loading !== undefined) return;
-    if (document.readyState === "complete") {
-      setWindowLoaded(true);
-      return;
-    }
-    const onLoad = () => setWindowLoaded(true);
-    window.addEventListener("load", onLoad);
-    return () => window.removeEventListener("load", onLoad);
-  }, [loading]);
-
-  // Controlled: show again when `loading` flips back to true.
-  useEffect(() => {
-    if (loading) setPhase("loading");
-  }, [loading]);
-
-  // While showing: note when it appeared and lock page scroll underneath.
-  useEffect(() => {
-    if (phase !== "loading") return;
-    shownAt.current = performance.now();
-    const root = document.documentElement;
-    root.classList.add("whal3-loader-lock");
-    return () => root.classList.remove("whal3-loader-lock");
-  }, [phase]);
-
-  // Hide once ready, but not before the minimum time on screen.
-  useEffect(() => {
-    if (phase !== "loading" || !ready) return;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const elapsed = performance.now() - shownAt.current;
-    const wait = Math.max(0, (reduced ? 0 : minDuration) - elapsed);
-    const timer = setTimeout(() => setPhase("leaving"), wait);
-    return () => clearTimeout(timer);
-  }, [phase, ready, minDuration]);
-
-  // Never trap the page if loading never finishes.
-  useEffect(() => {
-    if (phase !== "loading" || !Number.isFinite(maxDuration)) return;
-    const timer = setTimeout(() => setPhase("leaving"), maxDuration);
-    return () => clearTimeout(timer);
-  }, [phase, maxDuration]);
-
-  // Fade out, tell the page, then unmount.
-  useEffect(() => {
-    if (phase !== "leaving") return;
-    onDoneRef.current?.();
-    document.dispatchEvent(new CustomEvent("pageloader:done"));
-    const timer = setTimeout(() => setPhase("gone"), FADE_MS);
-    return () => clearTimeout(timer);
-  }, [phase]);
-
-  if (phase === "gone") return null;
-
   const style = {
     "--whal3-ink": color,
     "--whal3-bg": background,
     "--whal3-size": `${size}px`,
-    animationDelay: Number.isFinite(maxDuration) ? `${maxDuration + 1000}ms` : undefined,
-    animationName: Number.isFinite(maxDuration) ? undefined : "none",
   } as CSSProperties;
 
   return (
-    <div
-      className={phase === "leaving" ? "whal3-loader is-done" : "whal3-loader"}
-      style={style}
-      role="status"
-    >
+    <div className="whal3-loader" style={style} role="status">
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       <div className="whal3-loader-stage" aria-hidden="true">
         <span className="whal3-loader-ring" />
@@ -171,10 +64,6 @@ export function PageLoader({
 }
 
 const CSS = `
-html.whal3-loader-lock {
-  overflow: hidden;
-  scrollbar-gutter: stable;
-}
 .whal3-loader {
   position: fixed;
   inset: 0;
@@ -182,30 +71,12 @@ html.whal3-loader-lock {
   display: grid;
   place-items: center;
   background: var(--whal3-bg);
-  transition: opacity 0.75s cubic-bezier(0.33, 1, 0.68, 1);
-  /* CSS-only fallback in case JS never runs; the delay is set inline. */
-  animation: whal3-loader-failsafe 0.75s cubic-bezier(0.33, 1, 0.68, 1) forwards;
-  animation-delay: 9s;
-}
-/* Hidden only once the fade has finished; showing again is instant. */
-.whal3-loader.is-done {
-  transition:
-    opacity 0.75s cubic-bezier(0.33, 1, 0.68, 1),
-    visibility 0s linear 0.75s;
-  animation: none;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
 }
 .whal3-loader-stage {
   position: relative;
   width: var(--whal3-size);
   height: var(--whal3-size);
   color: var(--whal3-ink);
-  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.whal3-loader.is-done .whal3-loader-stage {
-  transform: scale(1.12);
 }
 /* Each ring starts at the mark's own circle and drifts outward, easing off
    as it fades. Negative delays put all three in flight on first paint. */
@@ -262,20 +133,8 @@ html.whal3-loader-lock {
     transform: scale(0.96);
   }
 }
-@keyframes whal3-loader-failsafe {
-  to {
-    opacity: 0;
-    visibility: hidden;
-  }
-}
-/* Reduced motion: hold the rings still as a static halo; the loader still
-   fades out, but without the scale. */
+/* Reduced motion: hold the rings still as a static halo. */
 @media (prefers-reduced-motion: reduce) {
-  .whal3-loader-stage,
-  .whal3-loader.is-done .whal3-loader-stage {
-    transform: none;
-    transition: none;
-  }
   .whal3-loader-ring,
   .whal3-loader-mark {
     animation: none;
